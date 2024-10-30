@@ -19,5 +19,7 @@ Welcome to my portfolio website! This project showcases my work, skills, and exp
 
 - **HTML**: For the structure of the website.
 - **CSS**: For styling and layout.
+- **Tailwind**: For styling and layout.
 - **JavaScript**: For interactivity and dynamic content.
+- 
 
