@@ -2,7 +2,7 @@
 
 Welcome to my portfolio website! This project showcases my work, skills, and experiences as a Frontend Web Developer. Here, you will find examples of my projects, a brief introduction, and links to my social media profiles.
 
-## Table of Contents
+## Table of Contents 
 
 - [Features](#features)
 - [Technologies Used](#technologies-used)
