@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talha. - Personal Portfolio</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Changa:wght@400;700&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="shortcut icon" href="T.PNG" type="image/x-icon">
+    <style>
+        body {
+            font-family: 'Changa', sans-serif; 
+        }
+
+        .tooltip {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(243, 114, 9, 0.842);
+    color: white;
+    text-align: center;
+    border-radius: 4px;
+    padding: 5px 10px;
+    transition: opacity 0.6s ease;
+    z-index: 10;
+}
+
+.group:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+        .box {
+            background-image: url("profile.png");
+            background-size: cover;
+            background-position: center center;
+            height: 480px;
+            width: 100%; 
+            max-width: 550px; 
+            box-shadow: 0 20px 5px 5px rgba(0, 0, 0, 0.2);
+            animation: animate 5s ease-in-out infinite;
+            transition: all 1s ease-in-out;
+            border: 5px solid black;
+        }
+
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        
+    .skill-tooltip {
+        position: absolute;
+        bottom: 100%; /* Position above the image */
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: rgb(255, 145, 2);
+        color: #fff;
+        padding: 5px;
+        border-radius: 4px;
+        white-space: nowrap;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        pointer-events: none; /* Prevents mouse events on the tooltip */
+    }
+
+    .grid:hover .skill-tooltip {
+        opacity: 1; /* Show tooltip on hover */
+    }
+
+
+        .navbar {
+    transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+.navbar.scrolled {
+    background-color: rgba(255, 255, 255, 0.2); 
+    backdrop-filter: blur(10px);
+}
+
+.transition-transform {
+    transition: transform 0.3s ease; /* Smooth transition for the transform */
+}
+
+.hover\:translate-y-:hover {
+    transform: translateY(-5px); /* Move the div up by 5px on hover */
+}
+
+
+/* Add this hover effect */
+.box:hover {
+    filter: grayscale(100%); 
+    background-color: black; 
+}
+
+ /* Change icon color on focus */
+ input:focus + .fas,
+    textarea:focus + .fas {
+        color: #FFA500; /* Orange color */
+    }
+
+input ,textarea{
+    background-color: rgb(204, 204, 204);
+}
+
+        @keyframes animate {
+            0% {
+                border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            }
+            50% {
+                border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+            }
+            100% {
+                border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .box {
+                height: 600px; 
+                order: -1; 
+                margin-right: 0;
+                background-image: url("profile3.png");
+                width: 90%;
+                padding-top: 50px; 
+            }
+            .flex {
+                flex-direction: column;
+            }
+
+            .abc {
+                padding-left: 0px; 
+            }
+            .title {
+                align-self: start;
+            }
+
+            .cont {
+                align-self: end;
+                padding-right: 0px; 
+                position: fixed;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-300">
+
+    <nav class="navbar flex items-end justify-between p-4 sticky top-0">
+        <div class="title text-4xl font-bold pl-4 lg:pl-6">
+            Talha<span class="text-orange-500">.</span>
+        </div>
+    
+        <!-- Left Side: DarkMode Button and Hamburger Icon -->
+        <div class="cont flex items-center pr-4 space-x-2 lg:pr-12 lg:hidden">
+            <button id="hamburger" class="text-black focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </div>
+    
+        <!-- Centered items for larger screens -->
+        <ul class="hidden lg:flex space-x-8 pr-12">
+            <li><a href="#" class="text-black hover:text-orange-500 transition-colors duration-200">Home</a></li>
+            <li><a href="#about" class="text-black hover:text-orange-500 transition-colors duration-200">About</a></li>
+            <li><a href="#skills" class="text-black hover:text-orange-500 transition-colors duration-200">Skills</a></li>
+            <li><a href="#project" class="text-black hover:text-orange-500 transition-colors duration-200">Projects</a></li>
+            <li><a href="#contact" class="text-black hover:text-orange-500 transition-colors duration-200">Contact</a></li>
+        </ul>
+    </nav>
+    
+    <!-- Fullscreen Overlay Menu -->
+    <div id="menu" class="fixed inset-0 bg-gray-300 flex flex-col items-center justify-center space-y-8 transform transition-transform duration-300 scale-0" style="pointer-events: none;">
+        <button id="closeMenu" class="absolute top-4 right-12 text-black focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+        <ul class="flex flex-col space-y-4 text-xl">
+            <li><a href="#" class="text-black hover:text-orange-500 transition-colors duration-200">Home</a></li>
+            <li><a href="#about" class="text-black hover:text-orange-500 transition-colors duration-200">About</a></li>
+            <li><a href="#skills" class="text-black hover:text-orange-500 transition-colors duration-200">Skills</a></li>
+            <li><a href="#project" class="text-black hover:text-orange-500 transition-colors duration-200">Projects</a></li>
+            <li><a href="#contact" class="text-black hover:text-orange-500 transition-colors duration-200">Contact</a></li>
+        </ul>
+    </div>
+    
+    <div class="flex flex-col lg:flex-row items-center justify-between h-screen">
+        <div class="abc w-full flex flex-col justify-center pl-12 mb-12 lg:mb-0 lg:w-1/2 p-5">
+            <div class="p-6 rounded-lg">
+                <h1 class="text-5xl font-bold mb-4 text-shadow tracking-wide">Talha Ahmed</h1>
+
+                <h3 class="text-2xl font-bold mb-4">
+                    <span class="text-orange-500">Web Developer</span> and <span class="text-white text-shadow">Designer</span>
+                </h3>
+                <p class="mb-6 text-gray-600">Explore my projects and skills. I create engaging and effective solutions for your needs.</p>
+                <a href="talha_cv.pdf" download class="bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 transition">Download CV</a>
+    
+                <div class="mt-6 space-x-4 relative">
+                    <div class="relative group inline-block">
+                        <a href="https://www.facebook.com/yourusername" target="_blank" class="text-gray-600 hover:text-orange-500">
+                            <i class="fab fa-facebook fa-lg text-4xl"></i>
+                        </a>
+                        <span class="tooltip">Facebook</span>
+                    </div>
+                    <div class="relative group inline-block">
+                        <a href="https://github.com/classTalha" target="_blank" class="text-gray-600 hover:text-orange-500">
+                            <i class="fab fa-github fa-lg text-4xl"></i>
+                        </a>
+                        <span class="tooltip">GitHub</span>
+                    </div>
+                    <div class="relative group inline-block">
+                        <a href="https://www.instagram.com/classtalha" target="_blank" class="text-gray-600 hover:text-orange-500">
+                            <i class="fab fa-instagram fa-lg text-4xl"></i>
+                        </a>
+                        <span class="tooltip">Instagram</span>
+                    </div>
+                </div>
+                
+    
+                <!-- End of Social Icons Section -->
+    
+            </div>
+        </div>
+        <div class="box w-80 lg:w-1/2 lg:mr-12"></div>
+    </div>
+ 
+  
+ <!-- Next section after hero section -->
+<div class="mx-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-6 mt-16 mb-16">
+    <div class="flex items-center bg-white shadow-lg rounded-lg p-6 mx-1 mb-4 flex-col text-center transition-transform duration-300 ease-in-out hover:translate-y-[-5px]">
+        <i class="fas fa-check-circle text-orange-500 text-4xl mb-4"></i>
+        <div>
+            <h2 class="text-xl font-bold">100+</h2>
+            <p class="text-gray-600">Completed Projects</p>
+        </div>
+    </div>
+
+    <div class="flex items-center bg-white shadow-lg rounded-lg p-6 mx-1 mb-4 flex-col text-center transition-transform duration-300 ease-in-out hover:translate-y-[-5px]">
+        <i class="fas fa-keyboard text-orange-500 text-4xl mb-4"></i>
+        <div>
+            <h2 class="text-xl font-bold">3+</h2>
+            <p class="text-gray-600">Years of Experience</p>
+        </div>
+    </div>
+
+    <div class="flex items-center bg-white shadow-lg rounded-lg p-6 mx-1 mb-4 flex-col text-center transition-transform duration-300 ease-in-out hover:translate-y-[-5px]">
+        <i class="fas fa-users text-orange-500 text-4xl mb-4"></i>
+        <div>
+            <h2 class="text-xl font-bold">50+</h2>
+            <p class="text-gray-600">Happy Clients.</p>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+
+<!-- about me section  -->
+
+
+<section class="mx-4 flex flex-col lg:flex-row items-center justify-center p-6 mt-16 mb-16 rounded-lg">
+  
+    <!-- Left Div: Image in Circular Area -->
+    <div class="flex-1 flex justify-center mb-6 lg:mb-0">
+        <div class="p-8 flex items-center justify-center border-2 border-grey-400">
+            <img src="coding.jpg" alt="Your Name" class="w-100 h-100 object-cover"> <!-- Increased size -->
+        </div>
+    </div>
+
+    <!-- Right Div: Text Content -->
+    <div class="flex-1 pl-0 lg:pl-6 px-6 flex flex-col items-center lg:items-start">
+        <h1 id="about" class="text-grey-500 text-5xl pb-6 font-bold  pt-3">About Me<span class="text-orange-500">.</span></h1>
+        <h2 class="text-4xl font-bold mb-4 py-2 text-center lg:text-left">Need a Creative Product? I can Help You!</h2>
+        <p class="mb-6 text-gray-600 text-center lg:text-left">
+            Hi! I’m Talha Ahmed, and I’m a developer who has a passion for building clean web applications with intuitive functionalities. I enjoy the process of turning ideas into reality using creative solutions. I’m always curious about learning new skills, tools, and concepts. In addition to working on various solo full stack projects, I have worked with creative teams, which involves daily stand-ups and communications, source control, and project management.
+        </p>
+        <div class="flex flex-col space-y-4 lg:flex-row lg:space-x-4 lg:space-y-0 py-2">
+            <a href="#" class="bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 transition text-center flex items-center justify-center">
+                <i class="fas fa-user-check mr-2"></i>
+                Hire Me
+            </a>
+            <a href="talha_cv.pdf" download class="border border-black text-black bg-transparent py-2 px-4 rounded hover:bg-gray-800 hover:text-white transition">
+                Download CV
+            </a>
+        </div>
+    </div>
+</section>
+<hr>
+
+
+<!-- My Skills Section -->
+<section id="skills" class="mx-6 flex flex-col lg:flex-row items-center justify-center p-6 mt-16 mb-16 rounded-lg">
+    <!-- Left Div: Text Content -->
+    <div class="flex-1 pl-0 lg:pl-6 px-6 flex flex-col items-center lg:items-start">
+        <h1 class="text-grey-500 text-5xl pb-6 font-bold pt-3">My Skills<span class="text-orange-500">.</span></h1>
+        <h2 class="text-4xl font-bold mb-4 py-2 text-center lg:text-left">What My Programming Skills Included?</h2>
+        <p class="mb-6 text-gray-600 text-center lg:text-left">
+            I develop simple, intuitive and responsive user interfaces that help users get things done with less effort and time with those technologies.
+        </p>
+
+        <!-- Toggle Switch -->
+        <label for="Toggle3" class="inline-flex items-center p-2 rounded-md cursor-pointer dark:text-gray-100">
+            <input id="Toggle3" type="checkbox" class="hidden peer" onclick="toggleGrid()">
+            <span class="px-4 py-2 rounded-l-md dark:bg-orange-500 peer-checked:dark:bg-gray-700">Skills</span>
+            <span class="px-4 py-2 rounded-r-md dark:bg-gray-700 peer-checked:dark:bg-orange-500">Tools</span>
+        </label>
+    </div>
+
+    <!-- Right Div: Image Grid -->
+    <div id="skillsGrid" class="flex-1 grid px-12 pt-12 grid-cols-2 sm:grid-cols-3 gap-4 p-4 transition-opacity duration-300 ease-in-out"> <!-- Default Skills Grid -->
+        <div class="relative flex items-center justify-center bg-white p-4 shadow-md rounded-lg">
+            <img src="bootstrap.png" alt="Skill 1" class="w-16 h-16">
+            <span class="skill-tooltip">Bootstrap</span>
+        </div>
+        <div class="relative flex items-center justify-center bg-white p-4 shadow-md rounded-lg">
+            <img src="html5.png" alt="Skill 2" class="w-16 h-16">
+            <span class="skill-tooltip">HTML5</span>
+        </div>
+        <div class="relative flex items-center justify-center bg-white p-4 shadow-md rounded-lg">
+            <img src="css3.png" alt="Skill 3" class="w-16 h-16">
+            <span class="skill-tooltip">CSS3</span>
+        </div>
+        <div class="relative flex items-center justify-center bg-white p-4 shadow-md rounded-lg">
+            <img src="react.png" alt="Skill 4" class="w-16 h-16">
+            <span class="skill-tooltip">React</span>
+        </div>
+        <div class="relative flex items-center justify-center bg-white p-4 shadow-md rounded-lg">
+            <img src="javascript.png" alt="Skill 5" class="w-16 h-16">
+            <span class="skill-tooltip">JavaScript</span>
+        </div>
+        <div class="relative flex items-center justify-center bg-white p-4 shadow-md rounded-lg">
+            <img src="firebase.png" alt="Skill 6" class="w-16 h-16">
+            <span class="skill-tooltip">Firebase</span>
+        </div>
+    </div>
+
+    <!-- Hidden Tools Grid -->
+    <div id="toolsGrid" class="hidden grid px-12 pt-12 flex-1 grid grid-cols-2 sm:grid-cols-3 gap-4 p-4 transition-opacity duration-300 ease-in-out"> <!-- Hidden Tools Grid -->
+        <div class="relative flex items-center justify-center bg-white p-4 shadow-md rounded-lg">
+            <img src="command.png" alt="Tool 1" class="w-16 h-16">
+            <span class="skill-tooltip">Command Line</span>
+        </div>
+        <div class="relative flex items-center justify-center bg-white p-4 shadow-md rounded-lg">
+            <img src="xampp.png" alt="Tool 2" class="w-16 h-16">
+            <span class="skill-tooltip">XAMPP</span>
+        </div>
+        <div class="relative flex items-center justify-center bg-white p-4 shadow-md rounded-lg">
+            <img src="vs-code.png" alt="Tool 3" class="w-16 h-16">
+            <span class="skill-tooltip">VS Code</span>
+        </div>
+        <div class="relative flex items-center justify-center bg-white p-4 shadow-md rounded-lg">
+            <img src="npm.png" alt="Tool 4" class="w-16 h-16">
+            <span class="skill-tooltip">NPM</span>
+        </div>
+        <div class="relative flex items-center justify-center bg-white p-4 shadow-md rounded-lg">
+            <img src="git.png" alt="Tool 5" class="w-16 h-16">
+            <span class="skill-tooltip">Git</span>
+        </div>
+        <div class="relative flex items-center justify-center bg-white p-4 shadow-md rounded-lg">
+            <img src="sublime.png" alt="Tool 6" class="w-16 h-16">
+            <span class="skill-tooltip">Sublime Text</span>
+        </div>
+    </div>
+</section>
+<hr>
+
+
+
+<!-- MY Projects section  -->
+
+<section class="mx-6 flex flex-col lg:flex-row items-center justify-center p-6 mt-16 mb-16 rounded-lg">
+  
+    <!-- Left Div: Image   -->
+    <div class="flex-1 flex justify-center mb-6 lg:mb-0">
+        <div class="p-2 flex items-center justify-center ">
+            <img src="coder.png" alt="Your Name" class="w-100 h-100 object-cover"> <!-- Increased size -->
+        </div>
+    </div>
+
+    <!-- Right Div: Text Content -->
+    <div class="flex-1 pl-0 lg:pl-6 px-6 flex flex-col items-center lg:items-start">
+        <h1 id="project" class="text-grey-500 text-5xl pb-6 font-bold  pt-3">My Projects<span class="text-orange-500">.</span></h1>
+        <h2 class="text-4xl font-bold mb-4 py-2 text-center lg:text-left">See My Works Which Will Amaze You!</h2>
+        <p class=" mb-6 text-gray-600 text-center lg:text-left">
+        I develop the best quality website that serves for the long-term. Well-documented, clean, easy and elegant interface helps any non-technical clients.
+        </p>
+    </div>
+</section>
+
+<!-- Project Overview Section -->
+<section class="p-14 mt-16 mb-16 rounded-lg">
+    <div class="flex flex-col lg:flex-row gap-6">
+        <!-- Left Side: Project Description -->
+        <div id="projectDetails" class="flex-1 mb-6 lg:mb-0">
+            <h1 class="text-black text-5xl font-bold pb-6" id="projectTitle">Select a Project<span class="text-orange-500">.</span></h1>
+            <h2 class="text-xl font-bold mb-6" id="projectSubtitle">Overview</h2>
+            <p class="text-gray-600 mb-6" id="projectDescription">
+                These are some of the recent projects i have worked on. <br>Click on a project to see the description here and view the project.
+            </p>
+            <!-- View Project button will be displayed only after a project is selected -->
+            <div class="mt-12">
+                <a id="viewProjectBtn" href="#" class="mt-4 px-4 py-2 bg-orange-500 text-white rounded-md hidden" target="_blank">View Project</a>
+            </div>
+        </div>
+
+        <!-- Right Side: Grid of Projects -->
+        <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-6"> <!-- Updated grid classes -->
+            <!-- Project 1 -->
+            <div class="project-block bg-white shadow-lg rounded-lg overflow-hidden cursor-pointer transition-all" onclick="updateProject('projectMCQs', 'The Quiz App is a simple yet engaging web application designed to help users test their knowledge through multiple-choice questions (MCQs). Built using HTML, CSS, and JavaScript, this app provides a user-friendly interface for both quiz-takers and administrators.', 'https://example.com/project1', this)">
+                <div class="relative border-2 border-transparent hover:border-black">
+                    <img src="quiz1.PNG" alt="Project 1" class="w-full h-40 object-cover transition-opacity duration-300">
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="project-block bg-white shadow-lg rounded-lg overflow-hidden cursor-pointer transition-all" onclick="updateProject('StoryShare', 'StoryShare is a unique online platform designed for individuals to share their stories, experiences, and insights anonymously. Whether it’s a personal journey, a fictional tale, or a reflection on a significant life event, StoryShare provides a safe space for users to express themselves without the constraints of identity.', 'https://example.com/project2', this)">
+                <div class="relative border-2 border-transparent hover:border-black">
+                    <img src="story1.PNG" alt="Project 2" class="w-full h-40 object-cover transition-opacity duration-300">
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="project-block bg-white shadow-lg rounded-lg overflow-hidden cursor-pointer transition-all" onclick="updateProject('GymTown', 'Gym Town is your premier fitness destination, offering a welcoming environment for individuals of all fitness levels. Our website serves as a comprehensive platform for registration, class schedules, gym information, and community engagement. Whether you’re a fitness novice or a seasoned athlete, Gym Town has something for everyone.', 'https://example.com/project3', this)">
+                <div class="relative border-2 border-transparent hover:border-black">
+                    <img src="gym.PNG" alt="Project 3" class="w-full h-40 object-cover transition-opacity duration-300">
+                </div>
+            </div>
+
+            <!-- Project 4 -->
+            <div class="project-block bg-white shadow-lg rounded-lg overflow-hidden cursor-pointer transition-all" onclick="updateProject('NewPass', 'NewPass is an innovative online platform designed to help users generate strong, random passwords and securely store them in their profiles. With a focus on security and ease of use, NewPass makes managing your passwords simple and efficient.', 'https://example.com/project4', this)">
+                <div class="relative border-2 border-transparent hover:border-black">
+                    <img src="q2.PNG" alt="Project 4" class="w-full h-40 object-cover transition-opacity duration-300">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<hr>
+
+
+   
+<!-- Contact Me Section -->
+<section id="contact" class="p-4 mt-16 mb-16 rounded-lg">
+    <div class="flex flex-col lg:flex-row gap-6">
+        <!-- Left Side: Contact Form -->
+        <div class="flex-1 lg:w-2/5 bg-white shadow-lg rounded-lg p-8">
+            <h2 class="text-3xl font-bold mb-6 text-black">Drop me a message<span class="text-orange-500">.</span> </h2>
+            <form id="contactForm">
+                <div class="mb-4 relative">
+                    <input type="text" id="name" placeholder="Your Name" class="w-full border border-gray-300 rounded-md p-2 pl-10 focus:outline-none focus:border-orange-500 focus:ring-0" required>
+                    <i class="fas fa-user absolute left-3 top-2.5 text-gray-500 focus:text-orange-500"></i>
+                </div>
+
+                <div class="mb-4 relative">
+                    <input type="email" id="email" placeholder="Your Email" class="w-full border border-gray-300 rounded-md p-2 pl-10 focus:outline-none focus:border-orange-500 focus:ring-0" required>
+                    <i class="fas fa-envelope absolute left-3 top-2.5 text-gray-500 focus:text-orange-500"></i>
+                </div>
+
+                <div class="mb-4 relative">
+                    <input type="tel" id="phone" placeholder="Your Phone" class="w-full border border-gray-300 rounded-md p-2 pl-10 focus:outline-none focus:border-orange-500 focus:ring-0" required>
+                    <i class="fas fa-phone-alt absolute left-3 top-2.5 text-gray-500 focus:text-orange-500"></i>
+                </div>
+
+                <div class="mb-4 relative">
+                    <textarea id="message" placeholder="Your Message" rows="4" class="w-full border border-gray-300 rounded-md p-2 pl-10 focus:outline-none focus:border-orange-500 focus:ring-0" required></textarea>
+                    <i class="fas fa-comment-dots absolute left-3 top-2.5 text-gray-500 focus:text-orange-500"></i>
+                </div>
+
+                <button type="submit" class="w-full mt-4 px-4 py-2 bg-black text-white rounded-md hover:bg-orange-500 transition duration-300">Submit</button>
+            </form>
+        </div>
+
+       <!-- Right Side: Contact Information -->
+<div class="flex-1 lg:w-3/5 p-8 ">
+    <h2 class="text-3xl font-bold mb-6 text-black">Contact Me<span class="text-orange-500">.</span></h2>
+    <p class="text-gray-600 mb-4">Have You Any Project? Please Drop a Message<br>Get in touch and let me know how I can help. Fill out the form and I’ll be in touch as soon as possible.</p>
+    
+    <h3 class="text-xl font-bold mb-2 flex items-center">
+        <i class="fas fa-map-marker-alt text-gray-500 mr-2"></i> Address:
+    </h3>
+    <p class="text-gray-600 mb-4">942 Richmond, Seattle, Washington</p>
+
+    <h3 class="text-xl font-bold mb-2 flex items-center">
+        <i class="fas fa-phone-alt text-gray-500 mr-2"></i> Phone:
+    </h3>
+    <p class="text-gray-600 mb-4">+923175804360</p>
+
+    <h3 class="text-xl font-bold mb-2 flex items-center">
+        <i class="fas fa-envelope text-gray-500 mr-2"></i> Email:
+    </h3>
+    <p class="text-gray-600">talha98.cs@gmail.com</p>
+ <!-- Social Media Icons -->
+ <div class="mt-6 space-x-4 relative">
+ <div class="relative group inline-block">
+     <a href="https://www.facebook.com/yourusername" target="_blank" class="text-gray-600 hover:text-orange-500">
+         <i class="fab fa-facebook fa-lg text-4xl"></i>
+     </a>
+     <span class="tooltip">Facebook</span>
+ </div>
+ <div class="relative group inline-block">
+     <a href="https://github.com/classTalha" target="_blank" class="text-gray-600 hover:text-orange-500">
+         <i class="fab fa-github fa-lg text-4xl"></i>
+     </a>
+     <span class="tooltip">GitHub</span>
+ </div>
+ <div class="relative group inline-block">
+     <a href="https://www.instagram.com/classtalha" target="_blank" class="text-gray-600 hover:text-orange-500">
+         <i class="fab fa-instagram fa-lg text-4xl"></i>
+     </a>
+     <span class="tooltip">Instagram</span>
+ </div>
+
+ <div class="relative group inline-block">
+    <a href="https://www.instagram.com/classtalha" target="_blank" class="text-gray-600 hover:text-orange-500">
+        <i class="fab fa-whatsapp fa-lg text-4xl"></i>
+    </a>
+    <span class="tooltip">Whatsapp</span>
+</div>
+</div>
+
+</div>
+</section>
+
+
+
+<!-- Footer Section -->
+<footer class=" py-10">
+    <div class="flex justify-between items-center px-12">
+        <div class="title text-4xl font-bold pl-4 lg:pl-6">
+            Talha<span class="text-orange-500">.</span>
+        </div>
+        <div class="text-lg">© 2022 <span class="text-orange-500">classTalha.</span> All rights reserved</div>
+    </div>
+</footer>
+
+
+
+
+
+
+
+     
+    
+</body>
+<script>
+    const hamburger = document.getElementById('hamburger');
+    const menu = document.getElementById('menu');
+    const closeMenu = document.getElementById('closeMenu');
+
+    hamburger.addEventListener('click', () => {
+        menu.style.pointerEvents = 'auto'; 
+        menu.classList.remove('scale-0'); 
+        menu.classList.add('scale-100');
+    });
+
+    closeMenu.addEventListener('click', () => {
+        menu.classList.remove('scale-100');
+        menu.classList.add('scale-0');
+        setTimeout(() => {
+            menu.style.pointerEvents = 'none'; 
+        }, 500);
+    });
+
+    const navbar = document.querySelector('.navbar');
+
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 0) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+});
+
+function toggleGrid() {
+        const skillsGrid = document.getElementById('skillsGrid');
+        const toolsGrid = document.getElementById('toolsGrid');
+
+        // Fade out the current grid
+        if (!skillsGrid.classList.contains('hidden')) {
+            skillsGrid.classList.remove('opacity-100');
+            skillsGrid.classList.add('opacity-0');
+            setTimeout(() => {
+                skillsGrid.classList.add('hidden');
+                toolsGrid.classList.remove('hidden');
+                toolsGrid.classList.remove('opacity-0');
+                toolsGrid.classList.add('opacity-100');
+            }, 200); // Matches the CSS transition duration
+        } else {
+            toolsGrid.classList.remove('opacity-100');
+            toolsGrid.classList.add('opacity-0');
+            setTimeout(() => {
+                toolsGrid.classList.add('hidden');
+                skillsGrid.classList.remove('hidden');
+                skillsGrid.classList.remove('opacity-0');
+                skillsGrid.classList.add('opacity-100');
+            }, 200); // Matches the CSS transition duration
+        }
+    }
+
+  
+    function updateProject(title, description, link, element) {
+        // Update the project details
+        document.getElementById('projectTitle').innerText = title;
+        document.getElementById('projectSubtitle').innerText = 'Overview';
+        document.getElementById('projectDescription').innerText = description;
+
+        // Update the View Project button link and make it visible
+        const viewProjectBtn = document.getElementById('viewProjectBtn');
+        viewProjectBtn.href = link;
+        viewProjectBtn.classList.remove('hidden');
+
+        // Remove border and opacity from all project blocks
+        const projectBlocks = document.querySelectorAll('.project-block');
+        projectBlocks.forEach(block => {
+            const img = block.querySelector('img');
+            block.querySelector('div').classList.remove('border-black');
+            img.style.opacity = '1'; // Reset opacity
+        });
+
+        const selectedImg = element.querySelector('img');
+        selectedImg.style.opacity = '.6'; // Change opacity for the selected project
+    }
+
+</script>
+</html>
