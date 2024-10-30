@@ -1,6 +1,6 @@
 # Portfolio Website
 
-Welcome to my portfolio website! This project showcases my work, skills, and experiences as a [Your Profession, e.g., Web Developer, Graphic Designer]. Here, you will find examples of my projects, a brief introduction, and links to my social media profiles.
+Welcome to my portfolio website! This project showcases my work, skills, and experiences as a Frontend Web Developer. Here, you will find examples of my projects, a brief introduction, and links to my social media profiles.
 
 ## Table of Contents
 
